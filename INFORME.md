@@ -6,13 +6,21 @@
 1. **Clonar el repositorio de QEMU:**
    ```
   `git checkout -b mi-rama-personalizada`
+
   `git clone https://gitlab.com/qemu-project/qemu.git`
+
   `cd qemu`
+
   `git submodule init`
+
   `git submodule update --recursive`
+
   `./configure`
+
   `make`
+
   `sudo make install`
+
    ```
 
 2. **Instalar RISC-V GNU Compiler Toolchain:**
@@ -25,14 +33,19 @@
    # Por ejemplo, si eliges /opt/riscv, añade /opt/riscv/bin a tu PATH.
 
   `./configure --prefix=/opt/riscv`
+
   `sudo make`
+
    ```
 
 3. **Clonar el repositorio de xv6:**
    ```
   `git clone https://github.com/mit-pdos/xv6-riscv.git`
+
   `cd xv6-riscv`
+
   `make qemu`
+
    ```
 
 ## Problemas y Resoluciones
