@@ -4,12 +4,11 @@
 ## Pasos Seguidos para la Instalación
 
 1. **Clonar el repositorio de QEMU:**
-   ```
-  `git checkout -b mi-rama-personalizada`
+   ```git checkout -b mi-rama-personalizada```
 
-  `git clone https://gitlab.com/qemu-project/qemu.git`
+   ```git clone https://gitlab.com/qemu-project/qemu.git```
 
-  `cd qemu`
+   ```cd qemu```
 
   `git submodule init`
 
