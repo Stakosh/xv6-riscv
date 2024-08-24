@@ -42,7 +42,8 @@
 
 ## Pruebas de Funcionamiento
 
-- Se adjuntan capturas de pantalla como evidencia de que los comandos se ejecutaron correctamente:
-  ![Alt](imagenes/tarea-0-foto1.png)
-  ![Alt](imagenes/tarea-0-foto2.png)
-  ![Alt](imagenes/tarea-0-foto3.png)
+- Se adjuntan capturas de pantalla como evidencia de que los comandos se ejecutaron correctamente:=
+  ![Captura 1](imagenes/tarea-0-foto1.png)
+  ![Captura 2](imagenes/tarea-0-foto2.png)
+  ![Captura 3](imagenes/tarea-0-foto3.png)
+
