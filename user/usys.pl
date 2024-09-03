@@ -36,5 +36,5 @@ entry("getpid");
 entry("sbrk");
 entry("sleep");
 entry("uptime");
-entry("getppid");
-entry("getancestor");
+entry("getppid");   #agregado para getpidd
+entry("getancestor");  #agregado para getancestor
