@@ -79,5 +79,5 @@ Por ejemplo, el proceso con prioridad 19 se detendrá por 19 * 5 = 95 segundos.
 
 asi que se arreglo un poco el código para poder generar el mensaje en forma ordenada a medida que terminaban los procesos para ver si realmente funciona el orden de prioridad 
 
-![Foto Funcional ](./fotos-codigo "texto 2")
+![Foto Funcional ](fotos-codigo/ejecucion_exitosa_1.png)
 
