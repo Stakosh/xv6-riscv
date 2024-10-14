@@ -25,9 +25,12 @@ sleep() y wakeup() para suspender y despertar procesos
 
 
 
----------------------Procedimiento: ---------------------------------------------------
+## Procedimiento: 
 
 1) en ```kernel/proc.h``` dentro de la estructura struct proc, se agregan los nuevos campos ```priority``` y ```boost```
+
+![Foto Funcional 1 ](fotos-codigo/foto_implementacion-proch.png)
+
 
 
 2) en kernel/proc.c y buscar la función allocproc()
