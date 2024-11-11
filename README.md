@@ -138,6 +138,7 @@ si el programa  y los cambios fueron implementados correctamente, se deberia ver
 mprotect test passed
 munprotect test passed
 
+
 error: falto incluir en ```proc.h``` :
 
 ```
@@ -167,3 +168,8 @@ entry("munprotect");
 - En xv6, los codigos de ```mprotect``` y ```munprotect``` en ```proc.c``` usan la función ```walk()``` para obtener la entrada de la tabla de páginas correspondiente a la dirección de cada página en el rango de addr hasta addr + len.
 Ademas, cambia los permisos de la entrada de la tabla de páginas usando los bits de permisos. Para hacer que una página sea de solo lectura, desactiva el bit PTE_W en la entrada de la tabla de páginas. (estos cambios ya estan en el codigo de ambas funciones nuevas)
 
+
+- Fotos de los test ejecutados exitosamente
+
+![Foto 1 ](img/tarea3-sistemas-testpass.png)
+![Foto 2 ](img/tarea3-sistemas-testpass2.png)
