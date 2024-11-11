@@ -693,3 +693,39 @@ procdump(void)
     printf("\n");
   }
 }
+
+
+
+// Define mprotect function
+int
+mprotect(void *addr, int len)
+{
+    struct proc *p = myproc();
+    uint64 va = (uint64) addr;
+    for (uint64 a = va; a < va + len; a += PGSIZE) {
+        pte_t *pte = walk(p->pagetable, a, 0);
+        if (pte == 0 || (*pte & PTE_V) == 0) {
+            return -1;  // Invalid page
+        }
+        *pte &= ~PTE_W;  // Remove write permission
+    }
+    sfence_vma();  // Flush TLB
+    return 0;
+}
+
+// Define munprotect function
+int
+munprotect(void *addr, int len)
+{
+    struct proc *p = myproc();
+    uint64 va = (uint64) addr;
+    for (uint64 a = va; a < va + len; a += PGSIZE) {
+        pte_t *pte = walk(p->pagetable, a, 0);
+        if (pte == 0 || (*pte & PTE_V) == 0) {
+            return -1;  // Invalid page
+        }
+        *pte |= PTE_W;  // Restore write permission
+    }
+    sfence_vma();  // Flush TLB
+    return 0;
+}

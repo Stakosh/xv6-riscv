@@ -7,6 +7,7 @@
 #include "syscall.h"
 #include "defs.h"
 
+
 // Fetch the uint64 at addr from the current process.
 int
 fetchaddr(uint64 addr, uint64 *ip)
@@ -101,6 +102,8 @@ extern uint64 sys_unlink(void);
 extern uint64 sys_link(void);
 extern uint64 sys_mkdir(void);
 extern uint64 sys_close(void);
+extern uint64 sys_mprotect(void);  //nueva
+extern uint64 sys_munprotect(void); //nueva
 
 // An array mapping syscall numbers from syscall.h
 // to the function that handles the system call.
@@ -126,6 +129,8 @@ static uint64 (*syscalls[])(void) = {
 [SYS_link]    sys_link,
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
+[SYS_mprotect]    sys_mprotect, //nueva
+[SYS_munprotect]  sys_munprotect, //nueva
 };
 
 void
@@ -144,4 +149,39 @@ syscall(void)
             p->pid, p->name, num);
     p->trapframe->a0 = -1;
   }
+}
+
+
+
+
+uint64 sys_mprotect(void) {
+    uint64 addr;
+    int len;
+    
+    // Extraer los argumentos de la llamada de sistema
+    argaddr(0, &addr);
+    argint(1, &len);
+
+    // Validar los valores extraídos (por ejemplo, verifica si `len` es negativo)
+    if (len <= 0 || addr == 0)
+        return -1;
+
+    // Llamar a mprotect con los argumentos extraídos
+    return mprotect((void *)addr, len);
+}
+
+uint64 sys_munprotect(void) {
+    uint64 addr;
+    int len;
+
+    // Extraer los argumentos de la llamada de sistema
+    argaddr(0, &addr);
+    argint(1, &len);
+
+    // Validar los valores extraídos (por ejemplo, verifica si `len` es negativo)
+    if (len <= 0 || addr == 0)
+        return -1;
+
+    // Llamar a munprotect con los argumentos extraídos
+    return munprotect((void *)addr, len);
 }

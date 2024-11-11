@@ -1,4 +1,5 @@
 
+
 struct context {
   uint64 ra;
   uint64 sp;
@@ -106,3 +107,8 @@ struct proc {
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
 };
+
+
+// En proc.h
+int mprotect(void *addr, int len);
+int munprotect(void *addr, int len);
