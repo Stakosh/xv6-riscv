@@ -697,35 +697,67 @@ procdump(void)
 
 
 // Define mprotect function
-int
-mprotect(void *addr, int len)
-{
+int mprotect(void *addr, int len) {
     struct proc *p = myproc();
     uint64 va = (uint64) addr;
+
     for (uint64 a = va; a < va + len; a += PGSIZE) {
         pte_t *pte = walk(p->pagetable, a, 0);
         if (pte == 0 || (*pte & PTE_V) == 0) {
             return -1;  // Invalid page
         }
-        *pte &= ~PTE_W;  // Remove write permission
+
+        // Imprimir el estado de PTE_W antes de modificarlo
+        if (*pte & PTE_W) {
+            printf("Page at 0x%lx is writable\n", a);
+        } else {
+            printf("Page at 0x%lx is read-only\n", a);
+        }
+
+        // Desactivar el permiso de escritura (hace la página de solo lectura)
+        *pte &= ~PTE_W;
+
+        // Imprimir el estado de PTE_W después de la modificación
+        if (*pte & PTE_W) {
+            printf("Page at 0x%lx is now writable\n", a);
+        } else {
+            printf("Page at 0x%lx is now read-only\n", a);
+        }
     }
+
     sfence_vma();  // Flush TLB
     return 0;
 }
 
 // Define munprotect function
-int
-munprotect(void *addr, int len)
-{
+int munprotect(void *addr, int len) {
     struct proc *p = myproc();
     uint64 va = (uint64) addr;
+
     for (uint64 a = va; a < va + len; a += PGSIZE) {
         pte_t *pte = walk(p->pagetable, a, 0);
         if (pte == 0 || (*pte & PTE_V) == 0) {
             return -1;  // Invalid page
         }
-        *pte |= PTE_W;  // Restore write permission
+
+        // Imprimir el estado de PTE_W antes de modificarlo
+        if (*pte & PTE_W) {
+            printf("Page at 0x%lx is writable\n", a);
+        } else {
+            printf("Page at 0x%lx is read-only\n", a);
+        }
+
+        // Restaurar el permiso de escritura
+        *pte |= PTE_W;
+
+        // Imprimir el estado de PTE_W después de la modificación
+        if (*pte & PTE_W) {
+            printf("Page at 0x%lx is now writable\n", a);
+        } else {
+            printf("Page at 0x%lx is now read-only\n", a);
+        }
     }
+
     sfence_vma();  // Flush TLB
     return 0;
 }

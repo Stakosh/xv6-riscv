@@ -146,12 +146,26 @@ int mprotect(void *addr, int len);
 int munprotect(void *addr, int len);
 ```
 
+otro error: el archivo de prueba no reconoce las nuevas funciones. solucion:
+Declara las funciones en ```user/user.h ```
+
+```
+int mprotect(void *addr, int len);
+int munprotect(void *addr, int len);
+```
+
+y Agrega las llamadas de sistema en ```user/usys.pl```
+
+```
+entry("mprotect");
+entry("munprotect");
+```
 
 
 5. Modificar los permisos en la tabla de páginas:
 
-- En xv6, usa la función walk() para obtener la entrada de la tabla de páginas correspondiente a la dirección de cada página en el rango de addr hasta addr + len.
+- En xv6, los codigos de ```mprotect``` y ```munprotect``` en ```proc.c``` usan la función ```walk()``` para obtener la entrada de la tabla de páginas correspondiente a la dirección de cada página en el rango de addr hasta addr + len.
+
 
 - Cambia los permisos de la entrada de la tabla de páginas usando los bits de permisos. Para hacer que una página sea de solo lectura, desactiva el bit PTE_W en la entrada de la tabla de páginas.
 
-- Recuerda llamar a sfence.vma para asegurarte de que los cambios de permisos se reflejen inmediatamente en el hardware.
