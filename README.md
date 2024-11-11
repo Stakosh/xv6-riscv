@@ -165,7 +165,5 @@ entry("munprotect");
 5. Modificar los permisos en la tabla de páginas:
 
 - En xv6, los codigos de ```mprotect``` y ```munprotect``` en ```proc.c``` usan la función ```walk()``` para obtener la entrada de la tabla de páginas correspondiente a la dirección de cada página en el rango de addr hasta addr + len.
-
-
-- Cambia los permisos de la entrada de la tabla de páginas usando los bits de permisos. Para hacer que una página sea de solo lectura, desactiva el bit PTE_W en la entrada de la tabla de páginas.
+Ademas, cambia los permisos de la entrada de la tabla de páginas usando los bits de permisos. Para hacer que una página sea de solo lectura, desactiva el bit PTE_W en la entrada de la tabla de páginas. (estos cambios ya estan en el codigo de ambas funciones nuevas)
 
