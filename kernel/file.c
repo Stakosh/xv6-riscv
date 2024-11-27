@@ -146,6 +146,14 @@ filewrite(struct file *f, uint64 addr, int n)
       return -1;
     ret = devsw[f->major].write(1, addr, n);
   } else if(f->type == FD_INODE){
+    // Verificación de permisos para escritura
+    ilock(f->ip); // Bloqueamos el inode para evitar modificaciones concurrentes
+    if((f->ip->permissions & 2) == 0) {
+      iunlock(f->ip); // Desbloqueamos si no tiene permiso de escritura
+      return -1; // No tiene permisos de escritura
+    }
+    iunlock(f->ip); // Desbloqueamos después de verificar los permisos
+
     // write a few blocks at a time to avoid exceeding
     // the maximum log transaction size, including
     // i-node, indirect block, allocation blocks,
@@ -179,4 +187,5 @@ filewrite(struct file *f, uint64 addr, int n)
 
   return ret;
 }
+
 

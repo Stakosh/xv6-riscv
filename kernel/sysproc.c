@@ -5,6 +5,10 @@
 #include "memlayout.h"
 #include "spinlock.h"
 #include "proc.h"
+#include "sleeplock.h"
+#include "fs.h"
+#include "file.h"
+
 
 uint64
 sys_exit(void)
@@ -91,3 +95,40 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+
+
+//lógica de chmod
+uint64
+sys_chmod(void)
+{
+    char path[MAXPATH]; // Buffer para almacenar la ruta
+    int mode;
+    struct inode *ip;
+
+    // Obtén los argumentos correctamente
+    argstr(0, path, MAXPATH);
+    argint(1, &mode);
+
+    begin_op();
+    if ((ip = namei(path)) == 0) { // Busca el inode por el nombre
+        end_op();
+        return -1; // Archivo no encontrado
+    }
+    ilock(ip);
+
+    // Verifica si el archivo es inmutable
+    if (ip->permissions == 5) {
+        iunlockput(ip);
+        end_op();
+        return -1; // Archivo inmutable, no se pueden cambiar permisos
+    }
+
+    // Cambia los permisos
+    ip->permissions = mode;
+    iunlockput(ip);
+    end_op();
+
+    return 0; // Operación exitosa
+}
+

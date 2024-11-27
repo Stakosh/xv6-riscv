@@ -210,7 +210,11 @@ ialloc(uint dev, short type)
       dip->type = type;
       log_write(bp);   // mark it allocated on the disk
       brelse(bp);
-      return iget(dev, inum);
+      
+
+      struct inode *ip = iget(dev, inum); // Obtener el inode en memoria
+      ip->permissions = 3; // Establecer permisos predeterminados
+      return ip;
     }
     brelse(bp);
   }

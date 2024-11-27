@@ -301,6 +301,8 @@ create(char *path, short type, short major, short minor)
   return 0;
 }
 
+
+
 uint64
 sys_open(void)
 {
@@ -329,6 +331,20 @@ sys_open(void)
     }
     ilock(ip);
     if(ip->type == T_DIR && omode != O_RDONLY){
+      iunlockput(ip);
+      end_op();
+      return -1;
+    }
+
+    // **NUEVO: Verificación de permisos**
+    if((ip->permissions & 1) == 0 && (omode & O_RDONLY)) {
+      // No tiene permisos de lectura
+      iunlockput(ip);
+      end_op();
+      return -1;
+    }
+    if((ip->permissions & 2) == 0 && (omode & O_WRONLY)) {
+      // No tiene permisos de escritura
       iunlockput(ip);
       end_op();
       return -1;
@@ -369,6 +385,8 @@ sys_open(void)
 
   return fd;
 }
+
+
 
 uint64
 sys_mkdir(void)
