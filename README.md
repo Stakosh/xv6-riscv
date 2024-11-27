@@ -3,7 +3,7 @@
 
 
 
-## **Cambios Implementados - Primera Parte**
+## **Cambios Implementados**
 
 
 ### 1. Se creó el archivo `test.c` en la carpeta  `user.c` `  
