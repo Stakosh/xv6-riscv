@@ -5,7 +5,13 @@
 
 ## **Cambios Implementados**
 
-### **1. asd `queso` queso queso **
+
+### **1. Se creó el archivo `test.c` en la carpeta  `user.c` `  **
+
+### 2. Se agregó en el Makefile  
+
+### 2. Se agregó en el Makefile  
+
 
 - texto aqui explicando cambios
 
