@@ -445,3 +445,9 @@ chmod:
 ```
 
 6. en `usys.pl` se agregó `entry("chmod");`
+
+
+
+## **Ejución Exitosa**
+
+![Foto 2 ](img/test.png)
